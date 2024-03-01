@@ -26,11 +26,11 @@ class TimePickerInforme extends StatelessWidget {
           height: 150,
           width: 80,
           child: ListWheelScrollView(
-            itemExtent: 50,
-            diameterRatio: .8,
+            itemExtent: 60,
+            diameterRatio: 1,
             offAxisFraction: timeType == TimeType.hour ? -.1 : .1,
             useMagnifier: true,
-            magnification: 1.4,
+            magnification: 1.8,
             physics: const FixedExtentScrollPhysics(),
             children: _buildTimeItems(),
             onSelectedItemChanged: (index) => timeType == TimeType.hour
