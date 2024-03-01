@@ -57,7 +57,8 @@ class DetallePersonaScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
                     MaterialButton(
-                      onPressed: () => Navigator.pushNamed(context, "mapa"),
+                      onPressed: () => Navigator.pushNamed(context, "mapa",
+                          arguments: {"listaPersonas": personaList}),
                       color: Colors.blue,
                       textColor: Colors.white,
                       minWidth: 10,
