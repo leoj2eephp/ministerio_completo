@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
 import 'package:ministerio_completo/providers/db_provider.dart';
+import 'package:ministerio_completo/providers/navigation_provider.dart';
 import 'package:ministerio_completo/providers/registro_actividad_provider.dart';
 import 'package:ministerio_completo/screens/detalle_actividad_screen.dart';
 import 'package:ministerio_completo/widgets/date_picker_informe.dart';
@@ -17,6 +18,7 @@ class ActividadScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Logger l = Logger();
     final dbProvider = Provider.of<DBProvider>(context);
+    final navProvider = Provider.of<NavigationProvider>(context, listen: false);
     final registro = Provider.of<RegistroActividadProvider>(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -58,12 +60,7 @@ class ActividadScreen extends StatelessWidget {
             if (resultado != -1) {
               // _mostrarDialog(context, registro);
               registro.limpiarCampos();
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const DetalleActividadScreen(),
-                ),
-              );
+              navProvider.menu = 0;
             } else {
               l.w("NO SE INSERTÓ NADA");
             }
@@ -78,7 +75,7 @@ class ActividadScreen extends StatelessWidget {
     );
   }
 
-  void _mostrarDialog(
+  /* void _mostrarDialog(
       BuildContext context, RegistroActividadProvider registro) {
     showDialog(
       context: context,
@@ -100,5 +97,5 @@ class ActividadScreen extends StatelessWidget {
         );
       },
     );
-  }
+  }*/
 }

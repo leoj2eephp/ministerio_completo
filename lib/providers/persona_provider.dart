@@ -16,6 +16,17 @@ class PersonaProvider extends ChangeNotifier {
   final Logger _logger = Logger();
   Set<Marker> marcadores = {};
 
+  void addMarcadores(List<Persona> listaPersonas) {
+    // marcadores.clear();
+    for (var p in listaPersonas) {
+      final latlng = LatLng(p.lat, p.lng);
+      /* marcadores.add(Marker(
+      markerId: MarkerId(p.id.toString()),
+      position: latlng,
+    )); */
+    }
+  }
+
   void updateLocation(double newLatitud, double newLongitud) {
     latitud = newLatitud;
     longitud = newLongitud;

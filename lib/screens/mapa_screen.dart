@@ -11,12 +11,12 @@ class MapaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final personas = Provider.of<PersonaProvider>(context);
+    final personaPro = Provider.of<PersonaProvider>(context, listen: false);
     final Completer<GoogleMapController> mapController =
         Completer<GoogleMapController>();
 
     return FutureBuilder(
-      future: fetchData(personas),
+      future: fetchData(personaPro),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return const Center(child: CircularProgressIndicator());
@@ -27,14 +27,19 @@ class MapaScreen extends StatelessWidget {
         final data = snapshot.data!;
         final loc.LocationData gpsLocation = data[0];
         final List<Persona> listaPersonas = data[1];
-        final Set<Marker> marcadores = <Marker>{};
-        for (var p in listaPersonas) {
-          final latlng = LatLng(p.lat, p.lng);
-          marcadores.add(Marker(
-            markerId: MarkerId(p.lat.toString()),
-            position: latlng,
-          ));
-        }
+        // final Set<Marker> marcadores = <Marker>{};
+        personaPro.addMarcadores(listaPersonas);
+
+        /* personaPro.marcadores
+              .addLabelMarker(LabelMarker(
+                label: p.nombre,
+                markerId: MarkerId(
+                  p.nombre,
+                ),
+                position: latlng,
+                backgroundColor: Colors.green,
+              ))
+              .then((value) => personaPro.marcadores = {}); */
 
         CameraPosition cameraPosition = CameraPosition(
           target: LatLng(gpsLocation.latitude!, gpsLocation.longitude!),
@@ -46,7 +51,7 @@ class MapaScreen extends StatelessWidget {
           child: GoogleMap(
             mapType: MapType.hybrid,
             initialCameraPosition: cameraPosition,
-            markers: marcadores,
+            markers: personaPro.marcadores,
             onMapCreated: (GoogleMapController controller) {
               mapController.complete(controller);
             },

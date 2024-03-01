@@ -22,9 +22,9 @@ class PersonasScreen extends StatelessWidget {
         personaProvider.latitud = persona!.lat;
         personaProvider.longitud = persona!.lng;
       }
-    } /*  else {
-      personaProvider.clear();
-    } */
+    } else {
+      if (!personaProvider.actualizando) personaProvider.clear();
+    }
 
     return Scaffold(
       appBar: AppBar(
@@ -44,6 +44,7 @@ class PersonasScreen extends StatelessWidget {
                       personaProvider.nombre = value;
                     },
                     initialValue: persona?.nombre ?? "",
+                    textCapitalization: TextCapitalization.words,
                   ),
                   const SizedBox(
                     height: 20,
@@ -61,6 +62,7 @@ class PersonasScreen extends StatelessWidget {
                       personaProvider.observaciones = value;
                     },
                     initialValue: persona?.observaciones ?? "",
+                    textCapitalization: TextCapitalization.sentences,
                   ),
                   const Divider(height: 40),
                   _googleMaps(personaProvider),
