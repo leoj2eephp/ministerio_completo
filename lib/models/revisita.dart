@@ -4,13 +4,13 @@ class Revisita {
   int? id;
   String fecha;
   String observaciones;
-  int personaId;
+  int? personaId;
 
   Revisita(
       {this.id,
       required this.fecha,
       required this.observaciones,
-      required this.personaId});
+      this.personaId});
 
   factory Revisita.fromRawJson(String str) =>
       Revisita.fromJson(json.decode(str));
@@ -21,13 +21,13 @@ class Revisita {
         id: json["id"],
         fecha: json["fecha"],
         observaciones: json["observaciones"],
-        personaId: json["persona_id"],
+        personaId: json["personaId"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "fecha": fecha,
         "observaciones": observaciones,
-        "persona_id": personaId,
+        "personaId": personaId,
       };
 }

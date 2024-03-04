@@ -7,7 +7,7 @@ import 'package:ministerio_completo/providers/db_provider.dart';
 class PersonaProvider extends ChangeNotifier {
   int? id;
   String nombre = "";
-  String apellido = "";
+  DateTime fechaRegistro = DateTime.now();
   String observaciones = "";
   double latitud = 0;
   double longitud = 0;
@@ -15,16 +15,12 @@ class PersonaProvider extends ChangeNotifier {
 
   final Logger _logger = Logger();
   Set<Marker> marcadores = {};
+  MapType _tipoMapa = MapType.hybrid;
 
-  void addMarcadores(List<Persona> listaPersonas) {
-    // marcadores.clear();
-    for (var p in listaPersonas) {
-      final latlng = LatLng(p.lat, p.lng);
-      /* marcadores.add(Marker(
-      markerId: MarkerId(p.id.toString()),
-      position: latlng,
-    )); */
-    }
+  MapType get tipoMapa => _tipoMapa;
+  set tipoMapa(MapType value) {
+    _tipoMapa = value;
+    notifyListeners();
   }
 
   void updateLocation(double newLatitud, double newLongitud) {
@@ -38,11 +34,19 @@ class PersonaProvider extends ChangeNotifier {
   void clear() {
     id = null;
     nombre = "";
-    apellido = "";
+    fechaRegistro = DateTime.now();
     observaciones = "";
     latitud = 0;
     longitud = 0;
     actualizando = false;
+  }
+
+  String get fechaFormateadaBD {
+    return "${fechaRegistro.year}-${fechaRegistro.month.toString().padLeft(2, '0')}-${fechaRegistro.day.toString().padLeft(2, '0')}";
+  }
+
+  String get fechaFormateadaUI {
+    return "${fechaRegistro.day.toString().padLeft(2, '0')}-${fechaRegistro.month.toString().padLeft(2, '0')}-${fechaRegistro.year}";
   }
 
   Future save() async {
@@ -51,7 +55,7 @@ class PersonaProvider extends ChangeNotifier {
     try {
       final personita = Persona(
         nombre: nombre,
-        // apellido: apellido,
+        fechaRegistro: fechaFormateadaBD,
         observaciones: observaciones,
         lat: latitud,
         lng: longitud,

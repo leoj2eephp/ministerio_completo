@@ -12,11 +12,11 @@ class DBProvider extends ChangeNotifier {
   final String _sqlCreateInforme =
       "CREATE TABLE informe (id INTEGER PRIMARY KEY AUTOINCREMENT, fecha TEXT, minutosTotales INTEGER)";
   final String _sqlCreatePersona =
-      """CREATE TABLE persona (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT,
+      """CREATE TABLE persona (id INTEGER PRIMARY KEY AUTOINCREMENT, nombre TEXT, fechaRegistro TEXT,
                               observaciones TEXT, lat DOUBLE, lng DOUBLE)""";
   final String _sqlCreateRevisita =
       """ CREATE TABLE revisita (id INTEGER PRIMARY KEY AUTOINCREMENT, fecha TEXT, observaciones TEXT,
-                              persona_id INTEGER) """;
+                              personaId INTEGER) """;
 
   Future<Database> get database async {
     if (_database != null) return _database!;
@@ -31,7 +31,7 @@ class DBProvider extends ChangeNotifier {
 
     return await openDatabase(
       path,
-      version: 2,
+      version: 1,
       onOpen: (db) {},
       onCreate: (db, version) async {
         await db.execute(_sqlCreateInforme);

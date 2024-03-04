@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ministerio_completo/providers/persona_provider.dart';
+import 'package:ministerio_completo/widgets/persona_list_tile.dart';
 import 'package:provider/provider.dart';
 
 class DetallePersonaScreen extends StatelessWidget {
@@ -7,11 +8,11 @@ class DetallePersonaScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final personas = Provider.of<PersonaProvider>(context);
+    final personaProvider = Provider.of<PersonaProvider>(context);
     return Scaffold(
       appBar: AppBar(title: const Text("Personas Interesadas")),
       body: FutureBuilder(
-        future: personas.getAll(),
+        future: personaProvider.getAll(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final personaList = snapshot.data!;
@@ -20,32 +21,18 @@ class DetallePersonaScreen extends StatelessWidget {
                 itemCount: personaList.length,
                 itemBuilder: (context, index) {
                   final personita = personaList[index];
-                  return Dismissible(
-                    key: Key(personita.id.toString()),
-                    onDismissed: (direction) {
-                      personas.delete(personita.id!);
+                  return PersonaListTile(
+                    personita: personita,
+                    onDismissible: personaProvider.delete,
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        "personita",
+                        arguments: {
+                          "personita": personita,
+                        },
+                      );
                     },
-                    background: Container(
-                      color: Colors.red,
-                      alignment: Alignment.centerRight,
-                      child: const Icon(Icons.delete, color: Colors.white),
-                    ),
-                    child: ListTile(
-                      title: Center(child: Text(personita.nombre)),
-                      subtitle: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(personita.observaciones),
-                          /* Text("Lat: ${personita.lat}"),
-                          Text("Lng: ${personita.lng}"), */
-                        ],
-                      ),
-                      trailing: const Icon(Icons.gps_fixed),
-                      onTap: () =>
-                          Navigator.pushNamed(context, "personita", arguments: {
-                        "personita": personita,
-                      }),
-                    ),
                   );
                 },
               ),

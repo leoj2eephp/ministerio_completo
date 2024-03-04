@@ -44,6 +44,7 @@ dependencies:
   google_maps_flutter: ^2.5.3
   location: ^5.0.3
   custom_map_markers: ^0.0.2+1
+  path_provider: ^2.1.2
   
 dev_dependencies:
   flutter_test:

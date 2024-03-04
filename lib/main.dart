@@ -10,6 +10,7 @@ import 'package:ministerio_completo/screens/detalle_actividad_screen.dart';
 import 'package:ministerio_completo/screens/detalle_persona_screen.dart';
 import 'package:ministerio_completo/screens/detalle_revisita_screen.dart';
 import 'package:ministerio_completo/screens/home_screen.dart';
+import 'package:ministerio_completo/screens/lista_revisitas_screen.dart';
 import 'package:ministerio_completo/screens/mapa_screen.dart';
 import 'package:ministerio_completo/screens/personas_screen.dart';
 import 'package:ministerio_completo/screens/revisita_screen.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           "personita": (context) => PersonasScreen(context: context),
           "revisitas": (context) => DetalleRevisitaScreen(context: context),
           "revisitita": (context) => RevisitaScreen(context: context),
+          "lista_revisitas": (context) => const ListaRevisitasScreen(),
           // "detalleMes": (_) => const DetalleMesScreen(),
           "mapa": (context) => const MapaScreen(),
           // "mapa": (context) => const MapaScreen2(title: "Mapa"),
