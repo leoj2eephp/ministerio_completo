@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:ministerio_completo/providers/persona_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:location/location.dart' as loc;
+import 'package:ministerio_completo/helpers/maps_helper.dart' as mapHelper;
 
 class PersonasScreen extends StatelessWidget {
   const PersonasScreen({super.key, BuildContext? context});
@@ -88,7 +89,7 @@ class PersonasScreen extends StatelessWidget {
 
   FutureBuilder<loc.LocationData> _googleMaps(PersonaProvider personaProvider) {
     return FutureBuilder(
-        future: _getLocation(),
+        future: mapHelper.getLocation(),
         builder: (context, snapshot) {
           final Completer<GoogleMapController> mapController =
               Completer<GoogleMapController>();
@@ -139,12 +140,5 @@ class PersonasScreen extends StatelessWidget {
             ),
           );
         });
-  }
-
-  Future<loc.LocationData> _getLocation() async {
-    loc.Location location = loc.Location();
-    loc.LocationData ubicacionActual = await location.getLocation();
-
-    return ubicacionActual;
   }
 }

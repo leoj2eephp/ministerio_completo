@@ -6,6 +6,7 @@ import 'package:location/location.dart' as loc;
 import 'package:ministerio_completo/models/persona.dart';
 import 'package:ministerio_completo/providers/persona_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:ministerio_completo/helpers/maps_helper.dart' as mapHelper;
 
 class MapaScreen extends StatelessWidget {
   const MapaScreen({super.key});
@@ -88,15 +89,8 @@ class MapaScreen extends StatelessWidget {
   Future<List> fetchData(PersonaProvider personaProvider) async {
     // Esperamos a que ambas llamadas asíncronas se completen
     final results =
-        await Future.wait([_getLocation(), personaProvider.getAll()]);
+        await Future.wait([mapHelper.getLocation(), personaProvider.getAll()]);
     return results;
-  }
-
-  Future<loc.LocationData> _getLocation() async {
-    loc.Location location = loc.Location();
-    loc.LocationData ubicacionActual = await location.getLocation();
-
-    return ubicacionActual;
   }
 
   _customMarker(String text, Color color) {
@@ -123,43 +117,6 @@ class MapaScreen extends StatelessWidget {
         ),
         CustomPaint(
           size: const Size(20, 10),
-          painter: TrianglePainter(color: color),
-        ),
-      ],
-    );
-  }
-
-  _customMarker2(String symbol, Color color) {
-    return Container(
-      width: 30,
-      height: 30,
-      margin: const EdgeInsets.all(8),
-      decoration: BoxDecoration(
-          border: Border.all(color: color, width: 2),
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(15),
-          boxShadow: [BoxShadow(color: color, blurRadius: 6)]),
-      child: Center(child: Text(symbol)),
-    );
-  }
-
-  _customMarker3(String texto, Color color) {
-    return Column(
-      // alignment: Alignment.bottomCenter,
-      children: [
-        Container(
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-          child: Text(
-            texto,
-            style: TextStyle(fontSize: 14, color: Colors.white),
-          ),
-        ),
-        CustomPaint(
-          size: Size(20, 10),
           painter: TrianglePainter(color: color),
         ),
       ],
