@@ -1,42 +1,45 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:path/path.dart';
+import 'package:flutter/material.dart';
+import 'package:ministerio_completo/providers/db_provider.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:sqflite/sqflite.dart';
+import 'package:share_plus/share_plus.dart';
 
-Future<void> exportDatabaseToJSON(Database database) async {
+Future<void> exportDatabaseToJSON(BuildContext context) async {
+  final dbProvider = DBProvider();
+  final database = await dbProvider.database;
   // Obtener la lista de tablas en la base de datos
   List<Map<String, dynamic>> tables = await database.rawQuery(
     "SELECT name FROM sqlite_master WHERE type='table';",
   );
-
-  // Exportar cada tabla a JSON
+  // Mapa para almacenar los datos de todas las tablas
+  Map<String, List<Map<String, dynamic>>> allTableData = {};
+// Exportar cada tabla a JSON
   for (Map<String, dynamic> table in tables) {
     String tableName = table['name'];
     List<Map<String, dynamic>> tableData = await database.query(tableName);
-    await _exportTableToJSON(tableName, tableData);
+    allTableData[tableName] = tableData;
   }
+  // Exportar todos los datos a un solo archivo JSON
+  final path = await _exportAllTablesToJSON(allTableData);
+  // Mostrar menú de compartir
+  final fileName = XFile(path);
+  final message = 'Archivo JSON generado: $fileName';
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
+  Share.shareXFiles([fileName]);
 }
 
-Future<void> _exportTableToJSON(
-    String tableName, List<Map<String, dynamic>> data) async {
+Future<String> _exportAllTablesToJSON(
+    Map<String, List<Map<String, dynamic>>> allTableData) async {
   final directory = await getExternalStorageDirectory();
-  final file = File('${directory!.path}/$tableName.json');
-  final jsonData = jsonEncode(data);
-  await file.writeAsString(jsonData);
-}
+  final path = '${directory!.path}/ministerio.json';
+  final file = File(path);
+  // Crear un mapa para almacenar los datos de todas las tablas
+  Map<String, dynamic> jsonData = {};
+  for (String tableName in allTableData.keys) {
+    jsonData[tableName] = allTableData[tableName];
+  }
 
-void main() async {
-  // Abrir la base de datos
-  final databasesPath = await getDatabasesPath();
-  final String path = join(databasesPath, 'your_database.db');
-  final Database database = await openDatabase(path);
-
-  // Exportar la base de datos a JSON
-  await exportDatabaseToJSON(database);
-
-  // Cerrar la base de datos
-  await database.close();
-
-  print('Base de datos exportada exitosamente.');
+  await file.writeAsString(jsonEncode(jsonData));
+  return path;
 }

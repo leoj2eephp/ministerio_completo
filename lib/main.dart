@@ -59,7 +59,14 @@ class MyApp extends StatelessWidget {
         supportedLocales: const [
           Locale('es', 'CL'),
         ],
-        darkTheme: ThemeData.dark(),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          primaryColor: Colors.black,
+          textTheme: const TextTheme(
+            bodyLarge: TextStyle(color: Colors.white),
+            titleLarge: TextStyle(color: Colors.white),
+          ),
+        ),
       ),
     );
   }

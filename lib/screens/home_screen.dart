@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ministerio_completo/providers/navigation_provider.dart';
 import 'package:ministerio_completo/screens/actividad_screen.dart';
-import 'package:ministerio_completo/screens/detalle_actividad_screen.dart';
 import 'package:ministerio_completo/screens/detalle_persona_screen.dart';
 import 'package:ministerio_completo/screens/detalle_revisita_screen.dart';
 import 'package:ministerio_completo/screens/inicio_screen.dart';
@@ -13,11 +12,10 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final navProvider = Provider.of<NavigationProvider>(context);
+    final tema = Theme.of(context);
+    final isDarkMode = tema.brightness == Brightness.dark;
 
     return Scaffold(
-      /* appBar: AppBar(
-        title: const Text("Inicio"),
-      ), */
       bottomNavigationBar: BottomNavigationBar(
         onTap: (value) => navProvider.menu = value,
         items: const [
@@ -31,8 +29,9 @@ class HomeScreen extends StatelessWidget {
         ],
         elevation: 10,
         currentIndex: navProvider.menu,
-        selectedItemColor: Theme.of(context).primaryColor,
-        unselectedItemColor: Theme.of(context).dividerColor,
+        selectedItemColor: !isDarkMode ? Theme.of(context).primaryColor : null,
+        unselectedItemColor:
+            !isDarkMode ? Theme.of(context).dividerColor : null,
         showUnselectedLabels: true,
         type: BottomNavigationBarType.fixed,
       ),
@@ -49,7 +48,7 @@ class _CustomBody extends StatelessWidget {
     final navProvider = Provider.of<NavigationProvider>(context);
     switch (navProvider.menu) {
       case 0:
-        return DetalleActividadScreen(context: context);
+        return const InicioScreen();
       case 1:
         return ActividadScreen(context: context);
       case 2:

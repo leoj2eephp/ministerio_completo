@@ -6,7 +6,7 @@ import 'package:location/location.dart' as loc;
 import 'package:ministerio_completo/models/persona.dart';
 import 'package:ministerio_completo/providers/persona_provider.dart';
 import 'package:provider/provider.dart';
-import 'package:ministerio_completo/helpers/maps_helper.dart' as mapHelper;
+import 'package:ministerio_completo/helpers/maps_helper.dart' as map_helper;
 
 class MapaScreen extends StatelessWidget {
   const MapaScreen({super.key});
@@ -89,7 +89,7 @@ class MapaScreen extends StatelessWidget {
   Future<List> fetchData(PersonaProvider personaProvider) async {
     // Esperamos a que ambas llamadas asíncronas se completen
     final results =
-        await Future.wait([mapHelper.getLocation(), personaProvider.getAll()]);
+        await Future.wait([map_helper.getLocation(), personaProvider.getAll()]);
     return results;
   }
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:ministerio_completo/providers/persona_provider.dart';
-import 'package:ministerio_completo/providers/revisita_provider.dart';
 import 'package:ministerio_completo/widgets/custom_error.dart';
 import 'package:ministerio_completo/widgets/simple_persona_list_tile.dart';
 import 'package:provider/provider.dart';

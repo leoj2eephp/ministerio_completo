@@ -3,7 +3,6 @@ import 'package:logger/logger.dart';
 import 'package:ministerio_completo/providers/db_provider.dart';
 import 'package:ministerio_completo/providers/navigation_provider.dart';
 import 'package:ministerio_completo/providers/registro_actividad_provider.dart';
-import 'package:ministerio_completo/screens/detalle_actividad_screen.dart';
 import 'package:ministerio_completo/widgets/date_picker_informe.dart';
 import 'package:ministerio_completo/widgets/time_picker_informe.dart';
 import 'package:provider/provider.dart';
