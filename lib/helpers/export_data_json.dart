@@ -31,8 +31,8 @@ Future<void> exportDatabaseToJSON(BuildContext context) async {
 
 Future<String> _exportAllTablesToJSON(
     Map<String, List<Map<String, dynamic>>> allTableData) async {
-  final directory = await getExternalStorageDirectory();
-  final path = '${directory!.path}/ministerio.json';
+  final directory = await getApplicationDocumentsDirectory();
+  final path = '${directory.path}/ministerio.json';
   final file = File(path);
   // Crear un mapa para almacenar los datos de todas las tablas
   Map<String, dynamic> jsonData = {};

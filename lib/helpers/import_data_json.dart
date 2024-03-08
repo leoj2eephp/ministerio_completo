@@ -39,7 +39,7 @@ Future<void> importFile(BuildContext context) async {
     hideImportProgressDialog(context);
     shoInformationDialog(context, "Hubo un error al importar la información",
         Icons.error, Colors.red);
-    throw Exception("No se seleccionó ninguna carpeta");
+    //throw Exception("No se seleccionó ninguna carpeta");
   }
 }
 
