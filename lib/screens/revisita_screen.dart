@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:logger/logger.dart';
+import 'package:ministerio_completo/models/persona.dart';
 import 'package:ministerio_completo/providers/navigation_provider.dart';
 import 'package:ministerio_completo/providers/persona_provider.dart';
 import 'package:ministerio_completo/providers/revisita_provider.dart';
@@ -13,9 +14,11 @@ class RevisitaScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final revisitaProvider = Provider.of<RevisitaProvider>(context);
     final navProvider = Provider.of<NavigationProvider>(context);
+    final personita = ModalRoute.of(context)?.settings.arguments as Persona?;
     double screenWidth = MediaQuery.of(context).size.width * .92;
+    String title = personita != null ? "Registrar Revisita a ${personita.nombre}" : "";
     return Scaffold(
-      appBar: AppBar(title: const Text("Registrar Revisita")),
+      appBar: AppBar(title: Text(title)),
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
@@ -48,7 +51,7 @@ class RevisitaScreen extends StatelessWidget {
                     // initialValue: persona?.observaciones ?? "",
                   ),
                   const SizedBox(height: 20),
-                  FutureBuilder(
+                  personita == null ? FutureBuilder(
                     future: _loadDropdownMenuEntries(context),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
@@ -66,7 +69,7 @@ class RevisitaScreen extends StatelessWidget {
                         return const CircularProgressIndicator();
                       }
                     },
-                  ),
+                  ) : const Text(""),
                   const SizedBox(height: 50),
                   Center(
                     child: ElevatedButton.icon(
