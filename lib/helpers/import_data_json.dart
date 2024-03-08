@@ -1,20 +1,17 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter/material.dart';
 import 'package:flutter_file_dialog/flutter_file_dialog.dart';
 import 'package:logger/logger.dart';
 import 'package:ministerio_completo/providers/db_provider.dart';
 import 'package:sqflite/sqflite.dart';
-import 'package:ministerio_completo/helpers/custom_dialogs.dart';
 
 Logger _logger = Logger();
 
-Future<void> importFile(BuildContext context) async {
+Future<bool> importFile() async {
   const params = OpenFileDialogParams(
     dialogType: OpenFileDialogType.document,
     sourceType: SourceType.photoLibrary,
   );
-  showImportProgressDialog(context, "Sincronizando información");
   final filePath = await FlutterFileDialog.pickFile(params: params);
 
   if (!await FlutterFileDialog.isPickDirectorySupported()) {
@@ -32,13 +29,9 @@ Future<void> importFile(BuildContext context) async {
     await file.copy(newFilePath);
 
     _readAndReplaceDatabaseFromJSON(newFilePath);
-    hideImportProgressDialog(context);
-    shoInformationDialog(
-        context, "Sincronización finalizada", Icons.check, Colors.green);
+    return true;
   } else {
-    hideImportProgressDialog(context);
-    shoInformationDialog(context, "Hubo un error al importar la información",
-        Icons.error, Colors.red);
+    return false;
     //throw Exception("No se seleccionó ninguna carpeta");
   }
 }

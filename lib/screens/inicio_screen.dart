@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:ministerio_completo/helpers/custom_dialogs.dart';
 import 'package:ministerio_completo/helpers/export_data_json.dart';
 import 'package:ministerio_completo/helpers/import_data_json.dart';
 
@@ -27,14 +28,33 @@ class InicioScreen extends StatelessWidget {
                 onTap: () => exportDatabaseToJSON(context),
               ),
               PopupMenuItem(
-                child: Row(
-                  children: [
-                    Icon(Icons.cloud_download, color: primaryColor),
-                    Text(" Restaurar", style: TextStyle(color: primaryColor)),
-                  ],
-                ),
-                onTap: () => importFile(context),
-              ),
+                  child: Row(
+                    children: [
+                      Icon(Icons.cloud_download, color: primaryColor),
+                      Text(" Restaurar", style: TextStyle(color: primaryColor)),
+                    ],
+                  ),
+                  onTap: () {
+                    showImportProgressDialog(
+                        context, "Sincronizando información");
+                    importFile().then((result) {
+                      if (result) {
+                        hideImportProgressDialog(context);
+                        shoInformationDialog(
+                            context,
+                            "Sincronización finalizada",
+                            Icons.check,
+                            Colors.green);
+                      } else {
+                        hideImportProgressDialog(context);
+                        shoInformationDialog(
+                            context,
+                            "Hubo un error al importar la información",
+                            Icons.error,
+                            Colors.red);
+                      }
+                    });
+                  }),
             ],
           ),
         ],

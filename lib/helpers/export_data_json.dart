@@ -24,8 +24,6 @@ Future<void> exportDatabaseToJSON(BuildContext context) async {
   final path = await _exportAllTablesToJSON(allTableData);
   // Mostrar menú de compartir
   final fileName = XFile(path);
-  final message = 'Archivo JSON generado: $fileName';
-  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message)));
   Share.shareXFiles([fileName]);
 }
 
