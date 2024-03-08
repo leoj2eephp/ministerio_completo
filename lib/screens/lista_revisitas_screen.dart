@@ -25,14 +25,42 @@ class ListaRevisitasScreen extends StatelessWidget {
                 color: Colors.yellow,
               );
             }
-            return ListView.builder(
-                itemCount: revisita.length,
-                itemBuilder: (_, index) {
-                  return ListTile(
-                    title: Text("Fecha: ${revisita[index].fecha}"),
-                    subtitle: Text(revisita[index].observaciones),
-                  );
-                });
+            return Stack(children: [
+              ListView.builder(
+                  itemCount: revisita.length,
+                  itemBuilder: (_, index) {
+                    return ListTile(
+                      title: Text("Fecha: ${revisita[index].fecha}"),
+                      subtitle: Text(revisita[index].observaciones),
+                    );
+                  }),
+              Positioned(
+                bottom: 20,
+                right: 10,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    MaterialButton(
+                      onPressed: () => "",
+                      color: Colors.blue,
+                      textColor: Colors.white,
+                      minWidth: 10,
+                      height: 55,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      child: const Row(
+                        children: [
+                          Text("Agregar Revisita "),
+                          Icon(Icons.add),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                  ],
+                ),
+              )
+            ]);
           } else {
             return const CustomError(
               errorMsg:
@@ -43,23 +71,6 @@ class ListaRevisitasScreen extends StatelessWidget {
           }
         },
       ),
-      /* body: FutureBuilder(
-        future: revisitaProvider.getRevisitasPersonas(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData) {
-            final personas = snapshot.data!;
-            return ListView.builder(
-              itemCount: personas.length,
-              itemBuilder: (context, i) => ListTile(
-                title: Text(personas[i].nombre),
-                // subtitle: Text(personas[i].revisitas[0].observaciones ?? ""),
-              ),
-            );
-          } else {
-            return const CircularProgressIndicator();
-          }
-        },
-      ), */
     );
   }
 }

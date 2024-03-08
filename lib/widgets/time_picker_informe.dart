@@ -23,7 +23,7 @@ class TimePickerInforme extends StatelessWidget {
         ),
         // const SizedBox(height: 10),
         SizedBox(
-          height: 150,
+          height: 200,
           width: 80,
           child: ListWheelScrollView(
             itemExtent: 60,

@@ -6,9 +6,9 @@ import 'package:ministerio_completo/providers/persona_provider.dart';
 import 'package:ministerio_completo/providers/registro_actividad_provider.dart';
 import 'package:ministerio_completo/providers/revisita_provider.dart';
 import 'package:ministerio_completo/screens/actividad_screen.dart';
-import 'package:ministerio_completo/screens/detalle_actividad_screen.dart';
-import 'package:ministerio_completo/screens/detalle_persona_screen.dart';
-import 'package:ministerio_completo/screens/detalle_revisita_screen.dart';
+import 'package:ministerio_completo/screens/lista_informes_screen.dart';
+import 'package:ministerio_completo/screens/lista_personas_revisitadas_screen.dart';
+import 'package:ministerio_completo/screens/lista_personas_screen.dart';
 import 'package:ministerio_completo/screens/home_screen.dart';
 import 'package:ministerio_completo/screens/lista_revisitas_screen.dart';
 import 'package:ministerio_completo/screens/mapa_screen.dart';
@@ -36,11 +36,12 @@ class MyApp extends StatelessWidget {
         title: 'Ministerio Completo',
         routes: {
           "home": (_) => const HomeScreen(),
-          "actividad": (context) => const ActividadScreen(),
-          "actividad_anual": (context) => const DetalleActividadScreen(),
-          "personas": (_) => const DetallePersonaScreen(),
+          "actividad": (context) => ActividadScreen(context: context),
+          "actividad_anual": (context) => const ListaInformesScreen(),
+          "personas": (_) => const ListaPersonasScreen(),
           "personita": (context) => PersonasScreen(context: context),
-          "revisitas": (context) => DetalleRevisitaScreen(context: context),
+          "revisitas": (context) =>
+              ListaPersonasRevisitadasScreen(context: context),
           "revisitita": (context) => RevisitaScreen(context: context),
           "lista_revisitas": (context) => const ListaRevisitasScreen(),
           // "detalleMes": (_) => const DetalleMesScreen(),

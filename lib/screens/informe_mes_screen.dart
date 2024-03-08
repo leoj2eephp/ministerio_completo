@@ -3,9 +3,9 @@ import 'package:ministerio_completo/models/informe.dart';
 import 'package:ministerio_completo/providers/db_provider.dart';
 import 'package:provider/provider.dart';
 
-class DetalleMesScreen extends StatelessWidget {
+class InformeMesScreen extends StatelessWidget {
   final Informe informito;
-  const DetalleMesScreen({super.key, required this.informito});
+  const InformeMesScreen({super.key, required this.informito});
 
   @override
   Widget build(BuildContext context) {

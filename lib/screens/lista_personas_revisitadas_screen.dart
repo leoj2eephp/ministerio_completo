@@ -4,16 +4,15 @@ import 'package:ministerio_completo/widgets/custom_error.dart';
 import 'package:ministerio_completo/widgets/simple_persona_list_tile.dart';
 import 'package:provider/provider.dart';
 
-class DetalleRevisitaScreen extends StatelessWidget {
-  const DetalleRevisitaScreen({super.key, BuildContext? context});
+class ListaPersonasRevisitadasScreen extends StatelessWidget {
+  const ListaPersonasRevisitadasScreen({super.key, BuildContext? context});
 
   @override
   Widget build(BuildContext context) {
-    // final revisitaProvider = Provider.of<RevisitaProvider>(context, listen: false);
     final personaPro = Provider.of<PersonaProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Revisitas realizadas"),
+        title: const Text("Personas Revisitas"),
       ),
       body: FutureBuilder(
         future: personaPro.getAll(),
@@ -49,10 +48,10 @@ class DetalleRevisitaScreen extends StatelessWidget {
           );
         },
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => Navigator.pushNamed(context, "revisitita"),
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: FloatingActionButton.extended(
+          onPressed: () => Navigator.pushNamed(context, "revisitita"),
+          label: const Text("Registrar Revisita"),
+          icon: const Icon(Icons.add)),
     );
   }
 }

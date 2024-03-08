@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:ministerio_completo/models/persona.dart';
+import 'package:ministerio_completo/providers/revisita_provider.dart';
+import 'package:provider/provider.dart';
 
 class SimplePersonaListTile extends StatelessWidget {
   final Persona personita;
@@ -29,16 +31,20 @@ class SimplePersonaListTile extends StatelessWidget {
   }
 
   _customListTile(BuildContext context) {
-    return Card(
-      elevation: 4,
-      margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
-      child: ListTile(
-        title: Center(child: Text(personita.nombre)),
-        subtitle: Text(
-            "Primer registro: ${personita.fechaRegistro}\nRevisitas hechas: ${personita.cantRevisitas}"),
-        leading: const Icon(Icons.person),
-        trailing: const Icon(Icons.my_library_books),
-        onTap: () => onTap(),
+    final revisitaProvider = Provider.of<RevisitaProvider>(context);
+    return FutureBuilder(
+      future: revisitaProvider.getSumaRevisitasPorPersona(personita.id!),
+      builder: (context, snapshot) => Card(
+        elevation: 4,
+        margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
+        child: ListTile(
+          title: Center(child: Text(personita.nombre)),
+          subtitle: Text(
+              "Primer registro: ${personita.fechaRegistro}\nRevisitas hechas: ${snapshot.data}"),
+          leading: const Icon(Icons.person),
+          trailing: const Icon(Icons.my_library_books),
+          onTap: () => onTap(),
+        ),
       ),
     );
   }

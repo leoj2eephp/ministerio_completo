@@ -3,8 +3,8 @@ import 'package:ministerio_completo/providers/persona_provider.dart';
 import 'package:ministerio_completo/widgets/persona_list_tile.dart';
 import 'package:provider/provider.dart';
 
-class DetallePersonaScreen extends StatelessWidget {
-  const DetallePersonaScreen({super.key, BuildContext? context});
+class ListaPersonasScreen extends StatelessWidget {
+  const ListaPersonasScreen({super.key, BuildContext? context});
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,8 @@ class DetallePersonaScreen extends StatelessWidget {
                   final personita = personaList[index];
                   return PersonaListTile(
                     personita: personita,
-                    onDismissible: personaProvider.delete,
+                    onDismissible: () async =>
+                        await personaProvider.delete(personita.id!),
                     onTap: () {
                       Navigator.pushNamed(
                         context,

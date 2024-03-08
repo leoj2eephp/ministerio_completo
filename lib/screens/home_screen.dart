@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:ministerio_completo/providers/navigation_provider.dart';
-import 'package:ministerio_completo/screens/actividad_screen.dart';
-import 'package:ministerio_completo/screens/detalle_persona_screen.dart';
-import 'package:ministerio_completo/screens/detalle_revisita_screen.dart';
 import 'package:ministerio_completo/screens/inicio_screen.dart';
+import 'package:ministerio_completo/screens/lista_informes_screen.dart';
+import 'package:ministerio_completo/screens/lista_personas_revisitadas_screen.dart';
+import 'package:ministerio_completo/screens/lista_personas_screen.dart';
 import 'package:provider/provider.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -50,11 +50,11 @@ class _CustomBody extends StatelessWidget {
       case 0:
         return const InicioScreen();
       case 1:
-        return ActividadScreen(context: context);
+        return ListaInformesScreen(context: context);
       case 2:
-        return DetallePersonaScreen(context: context);
+        return ListaPersonasScreen(context: context);
       case 3:
-        return DetalleRevisitaScreen(context: context);
+        return ListaPersonasRevisitadasScreen(context: context);
       default:
         return const InicioScreen();
     }

@@ -107,4 +107,19 @@ class RevisitaProvider extends ChangeNotifier {
     }
     return [];
   }
+
+  Future<int> getSumaRevisitasPorPersona(int personaId) async {
+    final dbProvider = DBProvider();
+    final db = await dbProvider.database;
+    try {
+      const sql =
+          "SELECT COUNT(id) cantidad FROM revisita WHERE personaId = ? GROUP BY personaId";
+      final result = await db.rawQuery(sql, [personaId]);
+      return int.tryParse(result.first["cantidad"].toString()) ?? 0;
+    } catch (e) {
+      _logger.e(e);
+    }
+
+    return 0;
+  }
 }
