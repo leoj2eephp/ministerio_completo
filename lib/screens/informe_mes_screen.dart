@@ -34,7 +34,7 @@ class InformeMesScreen extends StatelessWidget {
                   ),
                   child: ListTile(
                     title: Text("Horas: ${informito.formatoHora}"),
-                    subtitle: Text(informito.fecha),
+                    subtitle: Text(informito.fechaFormateada),
                     trailing: const Icon(Icons.menu),
                     onTap: () {},
                   ),

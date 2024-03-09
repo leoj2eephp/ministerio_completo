@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ministerio_completo/helpers/fechas.dart' as date_helper;
 
 class Informe {
   int? id;
@@ -30,6 +31,11 @@ class Informe {
   String get formatoHora {
     final horasTotales = Duration(minutes: minutosTotales);
     return "${horasTotales.inHours.toString().padLeft(2, "0")}:${(horasTotales.inMinutes % 60).toString().padLeft(2, "0")}";
+  }
+
+  String get fechaFormateada {
+    DateTime date = DateTime.parse(fecha);
+    return "${date_helper.getDayNameFromDate(date)} ${date.day} de ${date_helper.getMonthFromDate(date)} del ${date.year}";
   }
 
   String getMes() {

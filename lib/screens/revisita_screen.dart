@@ -16,7 +16,8 @@ class RevisitaScreen extends StatelessWidget {
     final navProvider = Provider.of<NavigationProvider>(context);
     final personita = ModalRoute.of(context)?.settings.arguments as Persona?;
     double screenWidth = MediaQuery.of(context).size.width * .92;
-    String title = personita != null ? "Registrar Revisita a ${personita.nombre}" : "";
+    String title =
+        personita != null ? "Registrar Revisita a ${personita.nombre}" : "";
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: SafeArea(
@@ -48,28 +49,29 @@ class RevisitaScreen extends StatelessWidget {
                     onChanged: (value) {
                       revisitaProvider.observaciones = value;
                     },
-                    // initialValue: persona?.observaciones ?? "",
                   ),
                   const SizedBox(height: 20),
-                  personita == null ? FutureBuilder(
-                    future: _loadDropdownMenuEntries(context),
-                    builder: (context, snapshot) {
-                      if (snapshot.hasData) {
-                        return DropdownMenu(
-                            label: const Text("Seleccione una persona"),
-                            helperText:
-                                "Persona a la que se le registrará una revisita",
-                            width: screenWidth,
-                            enableFilter: true,
-                            enableSearch: true,
-                            onSelected: (value) =>
-                                revisitaProvider.personaId = value,
-                            dropdownMenuEntries: snapshot.data!);
-                      } else {
-                        return const CircularProgressIndicator();
-                      }
-                    },
-                  ) : const Text(""),
+                  personita == null
+                      ? FutureBuilder(
+                          future: _loadDropdownMenuEntries(context),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return DropdownMenu(
+                                  label: const Text("Seleccione una persona"),
+                                  helperText:
+                                      "Persona a la que se le registrará una revisita",
+                                  width: screenWidth,
+                                  enableFilter: true,
+                                  enableSearch: true,
+                                  onSelected: (value) =>
+                                      revisitaProvider.personaId = value,
+                                  dropdownMenuEntries: snapshot.data!);
+                            } else {
+                              return const CircularProgressIndicator();
+                            }
+                          },
+                        )
+                      : const Text(""),
                   const SizedBox(height: 50),
                   Center(
                     child: ElevatedButton.icon(

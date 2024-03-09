@@ -3,6 +3,7 @@ import 'package:ministerio_completo/models/persona.dart';
 import 'package:ministerio_completo/providers/revisita_provider.dart';
 import 'package:ministerio_completo/widgets/custom_error.dart';
 import 'package:provider/provider.dart';
+import 'package:ministerio_completo/helpers/fechas.dart' as date_helper;
 
 class ListaRevisitasScreen extends StatelessWidget {
   const ListaRevisitasScreen({super.key});
@@ -12,7 +13,8 @@ class ListaRevisitasScreen extends StatelessWidget {
     final revisitaProvider = Provider.of<RevisitaProvider>(context);
     final personita = ModalRoute.of(context)!.settings.arguments as Persona;
     return Scaffold(
-      appBar: AppBar(title: const Text("Bitácora de Revisita realizada")),
+      appBar:
+          AppBar(title: Text("Revisitas a ${personita.nombre.trim()} hechas")),
       body: FutureBuilder(
         future: revisitaProvider.getRevisitasPorPersona(personita.id!),
         builder: (context, snapshot) {
@@ -29,7 +31,8 @@ class ListaRevisitasScreen extends StatelessWidget {
                 itemCount: revisita.length,
                 itemBuilder: (_, index) {
                   return ListTile(
-                    title: Text("Fecha: ${revisita[index].fecha}"),
+                    title: Text(
+                        "Fecha: ${date_helper.getFechaCompletaEscritaFromString(revisita[index].fecha)}"),
                     subtitle: Text(revisita[index].observaciones),
                   );
                 });
@@ -44,7 +47,8 @@ class ListaRevisitasScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton.extended(
-          onPressed: () => Navigator.pushNamed(context, "revisitita", arguments: personita),
+          onPressed: () =>
+              Navigator.pushNamed(context, "revisitita", arguments: personita),
           label: const Text("Registrar Revisita"),
           icon: const Icon(Icons.add)),
     );
