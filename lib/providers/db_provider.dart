@@ -49,6 +49,7 @@ class DBProvider extends ChangeNotifier {
           fecha: registroInforme.fechaFormateada,
           minutosTotales: registroInforme.actividadTotal);
       resultado = await db.insert("informe", informito.toJson());
+      notifyListeners();
     } catch (e) {
       logger.e(e);
     }
@@ -92,7 +93,8 @@ class DBProvider extends ChangeNotifier {
     try {
       final db = await database;
       var resultado = await db.rawQuery(
-          "SELECT * FROM informe WHERE STRFTIME('%m', fecha) = ?", [mes]);
+          "SELECT * FROM informe WHERE STRFTIME('%m', fecha) = ? ORDER BY fecha DESC",
+          [mes]);
       return resultado.map((e) => Informe.fromJson(e)).toList();
     } catch (e) {
       logger.e(e);

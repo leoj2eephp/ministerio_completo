@@ -15,7 +15,7 @@ class ActividadScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final Logger l = Logger();
-    final dbProvider = Provider.of<DBProvider>(context);
+    final dbProvider = Provider.of<DBProvider>(context, listen: false);
     final registro = Provider.of<RegistroActividadProvider>(context);
     return Scaffold(
       appBar: AppBar(title: const Text("Informe del día")),

@@ -33,7 +33,12 @@ class Informe {
     return "${horasTotales.inHours.toString().padLeft(2, "0")}:${(horasTotales.inMinutes % 60).toString().padLeft(2, "0")}";
   }
 
-  String get fechaFormateada {
+  String get fechaFormatoChile {
+    DateTime date = DateTime.parse(fecha);
+    return "${date.day.toString().padLeft(2, '0')}-${date.month.toString().padLeft(2, '0')}-${date.year}";
+  }
+
+  String get fechaFormateadaTexto {
     DateTime date = DateTime.parse(fecha);
     return "${date_helper.getDayNameFromDate(date)} ${date.day} de ${date_helper.getMonthFromDate(date)} del ${date.year}";
   }
