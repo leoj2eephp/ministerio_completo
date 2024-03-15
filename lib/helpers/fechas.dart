@@ -32,6 +32,16 @@ String getMonthFromString(String fecha) {
   return dayName;
 }
 
+String getFechaFormatoChile(String fecha) {
+  final DateTime? date = DateTime.tryParse(fecha);
+  if (date != null) {
+    final DateFormat formatter = DateFormat('dd-MM-y', 'es');
+    return formatter.format(date);
+  } else {
+    return "Fecha no soportada";
+  }
+}
+
 String getFechaCompletaEscrita(DateTime date) {
   return "${date_helper.getDayNameFromDate(date)} ${date.day} de ${date_helper.getMonthFromDate(date)} del ${date.year}";
 }

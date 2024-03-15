@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ministerio_completo/models/persona.dart';
+import 'package:ministerio_completo/helpers/custom_dialogs.dart'
+    as custom_dialogs;
+import 'package:ministerio_completo/helpers/fechas.dart' as fechas_helper;
 
 class PersonaListTile extends StatelessWidget {
   final Persona personita;
@@ -23,6 +26,14 @@ class PersonaListTile extends StatelessWidget {
         ),
         child: _customListTile(context),
         onDismissed: (direction) => onDismissible!(),
+        confirmDismiss: (direction) async {
+          return await custom_dialogs.showConfirmDialog(
+              context,
+              "Confirmar Eliminación",
+              "¿Estás seguro de que deseas eliminar este elemento?",
+              Icons.delete,
+              Colors.red);
+        },
       );
     } else {
       return _customListTile(context);
@@ -40,7 +51,7 @@ class PersonaListTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-                "Primer registro: ${personita.fechaRegistro}\n${personita.observaciones}"),
+                "Primer registro: ${fechas_helper.getFechaFormatoChile(personita.fechaRegistro)}\n${personita.observaciones}"),
           ],
         ),
         leading: const Icon(Icons.person),

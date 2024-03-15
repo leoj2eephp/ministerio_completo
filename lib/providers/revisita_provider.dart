@@ -122,4 +122,18 @@ class RevisitaProvider extends ChangeNotifier {
 
     return 0;
   }
+
+  Future<int> delete(int id) async {
+    final dbProvider = DBProvider();
+    final db = await dbProvider.database;
+    try {
+      final result =
+          await db.delete("revisita", where: "id = ?", whereArgs: [id]);
+      notifyListeners();
+      return result;
+    } catch (e) {
+      _logger.e(e);
+      return 0;
+    }
+  }
 }

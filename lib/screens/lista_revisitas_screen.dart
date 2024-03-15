@@ -4,6 +4,8 @@ import 'package:ministerio_completo/providers/revisita_provider.dart';
 import 'package:ministerio_completo/widgets/custom_error.dart';
 import 'package:provider/provider.dart';
 import 'package:ministerio_completo/helpers/fechas.dart' as date_helper;
+import 'package:ministerio_completo/helpers/custom_dialogs.dart'
+    as custom_dialogs;
 
 class ListaRevisitasScreen extends StatelessWidget {
   const ListaRevisitasScreen({super.key});
@@ -30,10 +32,31 @@ class ListaRevisitasScreen extends StatelessWidget {
             return ListView.builder(
                 itemCount: revisita.length,
                 itemBuilder: (_, index) {
-                  return ListTile(
-                    title: Text(
-                        "Fecha: ${date_helper.getFechaCompletaEscritaFromString(revisita[index].fecha)}"),
-                    subtitle: Text(revisita[index].observaciones),
+                  final revisitita = revisita[index];
+                  return Dismissible(
+                    key: Key(revisitita.id.toString()),
+                    background: Container(
+                      color: Colors.red,
+                      alignment: Alignment.centerRight,
+                      child: const Icon(Icons.delete, color: Colors.white),
+                    ),
+                    onDismissed: (direction) =>
+                        revisitaProvider.delete(revisitita.id!),
+                    confirmDismiss: (direction) async =>
+                        await custom_dialogs.showConfirmDialog(
+                            context,
+                            "Confirmación de Eliminación",
+                            "¿Estás seguro de que deseas eliminar este elemento?",
+                            Icons.delete,
+                            Colors.red),
+                    child: Card(
+                      elevation: .5,
+                      child: ListTile(
+                        title: Text(
+                            "Fecha: ${date_helper.getFechaCompletaEscritaFromString(revisita[index].fecha)}"),
+                        subtitle: Text(revisitita.observaciones),
+                      ),
+                    ),
                   );
                 });
           } else {

@@ -24,8 +24,8 @@ class ListaInformesScreen extends StatelessWidget {
                   return ListTile(
                     title: Text("Mes de ${informito.getNombreMes()}"),
                     subtitle: Text("Horas: ${informito.formatoHora}"),
-                    isThreeLine: true,
-                    trailing: const Icon(Icons.menu),
+                    leading: const Icon(Icons.watch_later_outlined),
+                    trailing: const Icon(Icons.calendar_month_outlined),
                     onTap: () => Navigator.push(
                       context,
                       MaterialPageRoute(

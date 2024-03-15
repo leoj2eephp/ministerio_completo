@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 void showImportProgressDialog(BuildContext context, String texto) {

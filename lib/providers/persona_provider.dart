@@ -91,7 +91,10 @@ class PersonaProvider extends ChangeNotifier {
     final dbProvider = DBProvider();
     final db = await dbProvider.database;
     try {
-      return await db.delete("persona", where: "id = ?", whereArgs: [id]);
+      final result =
+          await db.delete("persona", where: "id = ?", whereArgs: [id]);
+      notifyListeners();
+      return result;
     } catch (e) {
       _logger.e(e);
       return 0;
