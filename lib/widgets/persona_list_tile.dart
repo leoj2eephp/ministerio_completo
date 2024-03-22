@@ -41,9 +41,11 @@ class PersonaListTile extends StatelessWidget {
   }
 
   _customListTile(BuildContext context) {
+    final tema = Theme.of(context);
+    final isDarkMode = tema.brightness == Brightness.dark;
     return Card(
       elevation: 4,
-      color: Colors.lightBlue.shade100,
+      color: !isDarkMode ? Colors.lightBlue.shade100 : Colors.blue.shade900,
       margin: const EdgeInsets.symmetric(vertical: 5, horizontal: 8),
       child: ListTile(
         title: Text(personita.nombre),
