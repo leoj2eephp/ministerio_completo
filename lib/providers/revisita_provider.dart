@@ -115,7 +115,11 @@ class RevisitaProvider extends ChangeNotifier {
       const sql =
           "SELECT COUNT(id) cantidad FROM revisita WHERE personaId = ? GROUP BY personaId";
       final result = await db.rawQuery(sql, [personaId]);
-      return int.tryParse(result.first["cantidad"].toString()) ?? 0;
+      if (result.isEmpty) {
+        return 0;
+      } else {
+        return int.tryParse(result.first["cantidad"].toString()) ?? 0;
+      }
     } catch (e) {
       _logger.e(e);
     }
