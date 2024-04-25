@@ -16,8 +16,11 @@ class RevisitaScreen extends StatelessWidget {
     final navProvider = Provider.of<NavigationProvider>(context);
     final personita = ModalRoute.of(context)?.settings.arguments as Persona?;
     double screenWidth = MediaQuery.of(context).size.width * .92;
-    String title =
-        personita != null ? "Registrar Revisita a ${personita.nombre}" : "";
+    String title = "";
+    if (personita != null) {
+      title = "Registrar Revisita a ${personita.nombre}";
+      revisitaProvider.personaId = personita.id;
+    }
     return Scaffold(
       appBar: AppBar(title: Text(title)),
       body: SafeArea(
