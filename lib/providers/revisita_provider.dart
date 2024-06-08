@@ -48,6 +48,7 @@ class RevisitaProvider extends ChangeNotifier {
           observaciones: observaciones,
           personaId: personaId);
       db.insert("revisita", revisita.toJson());
+      notifyListeners();
       clear();
     } catch (e) {
       _logger.e(e);

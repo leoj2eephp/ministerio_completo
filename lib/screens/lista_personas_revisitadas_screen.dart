@@ -9,7 +9,7 @@ class ListaPersonasRevisitadasScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final personaPro = Provider.of<PersonaProvider>(context, listen: false);
+    final personaPro = Provider.of<PersonaProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Personas Revisitas"),
