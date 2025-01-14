@@ -6,8 +6,7 @@ class DatePickerInforme extends StatelessWidget {
   final RegistroActividadProvider? registroProvider;
   final RevisitaProvider? revisitaProvider;
   const DatePickerInforme(
-      {Key? key, this.registroProvider, this.revisitaProvider})
-      : super(key: key);
+      {super.key, this.registroProvider, this.revisitaProvider});
 
   @override
   Widget build(BuildContext context) {

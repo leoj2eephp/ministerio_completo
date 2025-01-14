@@ -8,7 +8,7 @@ import Foundation
 import location
 import path_provider_foundation
 import share_plus
-import sqflite
+import sqflite_darwin
 
 func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
   LocationPlugin.register(with: registry.registrar(forPlugin: "LocationPlugin"))

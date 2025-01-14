@@ -10,10 +10,10 @@ class TimePickerWidget extends StatefulWidget {
       {super.key, required this.label, required this.timeType});
 
   @override
-  _TimePickerWidgetState createState() => _TimePickerWidgetState();
+  TimePickerWidgetState createState() => TimePickerWidgetState();
 }
 
-class _TimePickerWidgetState extends State<TimePickerWidget> {
+class TimePickerWidgetState extends State<TimePickerWidget> {
   int selectedTime = 0;
 
   @override

@@ -73,7 +73,7 @@ class DBProvider extends ChangeNotifier {
     try {
       final db = await database;
       var resultado = await db.rawQuery(
-          "SELECT STRFTIME('%m-%Y', fecha) AS mes, SUM(minutosTotales) AS minutosTotales FROM informe GROUP BY STRFTIME('%m-%Y', fecha) ORDER BY mes DESC");
+          "SELECT STRFTIME('%Y', fecha) as anio, STRFTIME('%m-%Y', fecha) AS mes, SUM(minutosTotales) AS minutosTotales FROM informe GROUP BY STRFTIME('%m-%Y', fecha) ORDER BY anio DESC, mes DESC");
       return resultado
           .map((e) => Informe(
                 // id: 1,

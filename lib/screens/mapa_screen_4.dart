@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class CustomMapsMarker extends StatefulWidget {
-  const CustomMapsMarker({Key? key, required this.title}) : super(key: key);
+  const CustomMapsMarker({super.key, required this.title});
   final String title;
 
   @override

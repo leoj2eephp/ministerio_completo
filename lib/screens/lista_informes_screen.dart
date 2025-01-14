@@ -17,24 +17,40 @@ class ListaInformesScreen extends StatelessWidget {
           if (snapshot.hasData) {
             final informes = snapshot.data!;
             if (informes.isNotEmpty) {
-              return ListView.builder(
-                itemCount: informes.length,
-                itemBuilder: (context, index) {
-                  final informito = informes[index];
-                  return ListTile(
-                    title: Text("Mes de ${informito.getNombreMes()}"),
-                    subtitle: Text("Horas: ${informito.formatoHora}"),
-                    leading: const Icon(Icons.watch_later_outlined),
-                    trailing: const Icon(Icons.calendar_month_outlined),
-                    onTap: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            InformeMesScreen(informito: informito),
-                      ),
-                    ),
+              final informesPorAno = <String, List>{};
+              for (var informe in informes) {
+                final ano = informe.fecha.split('-')[1];
+                if (informesPorAno.containsKey(ano)) {
+                  informesPorAno[ano]!.add(informe);
+                } else {
+                  informesPorAno[ano] = [informe];
+                }
+              }
+
+              return Column(
+                children: informesPorAno.keys.map((ano) {
+                  return ExpansionTile(
+                    title: Text(ano),
+                    initiallyExpanded: ano == DateTime.now().year.toString(),
+                    collapsedBackgroundColor: Colors.grey[200],
+                    children: informesPorAno[ano]!.map((informe) {
+                      return ListTile(
+                        title: Text("Mes de ${informe.getNombreMes()}"),
+                        subtitle: Text("Horas: ${informe.formatoHora}"),
+                        leading: const Icon(Icons.watch_later_outlined),
+                        trailing: const Icon(Icons.calendar_month_outlined),
+                        minVerticalPadding: double.minPositive,
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                InformeMesScreen(informito: informe),
+                          ),
+                        ),
+                      );
+                    }).toList(),
                   );
-                },
+                }).toList(),
               );
             } else {
               return const Center(
