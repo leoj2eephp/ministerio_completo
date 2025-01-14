@@ -32,7 +32,7 @@ class ListaInformesScreen extends StatelessWidget {
                   return ExpansionTile(
                     title: Text(ano),
                     initiallyExpanded: ano == DateTime.now().year.toString(),
-                    collapsedBackgroundColor: Colors.grey[200],
+                    backgroundColor: Colors.blue[100],
                     children: informesPorAno[ano]!.map((informe) {
                       return ListTile(
                         title: Text("Mes de ${informe.getNombreMes()}"),
