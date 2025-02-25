@@ -5,7 +5,7 @@ import 'package:ministerio_completo/providers/db_provider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
-Future<void> exportDatabaseToJSON(BuildContext context) async {
+Future<String> getDatabasePathJSON() async {
   final dbProvider = DBProvider();
   final database = await dbProvider.database;
   // Obtener la lista de tablas en la base de datos
@@ -21,7 +21,11 @@ Future<void> exportDatabaseToJSON(BuildContext context) async {
     allTableData[tableName] = tableData;
   }
   // Exportar todos los datos a un solo archivo JSON
-  final path = await _exportAllTablesToJSON(allTableData);
+  return await _exportAllTablesToJSON(allTableData);
+}
+
+Future<void> exportDatabaseToJSON(BuildContext context) async {
+  final path = await getDatabasePathJSON();
   // Mostrar menú de compartir
   final fileName = XFile(path);
   Share.shareXFiles([fileName]);

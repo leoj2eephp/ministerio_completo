@@ -78,28 +78,4 @@ class ActividadScreen extends StatelessWidget {
       ),
     );
   }
-
-  /* void _mostrarDialog(
-      BuildContext context, RegistroActividadProvider registro) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Registro exitoso'),
-          content: Text("""Se insertó el registro con el siguiente detalle:
-              Tiempo: ${registro.horas} : ${registro.minutos}
-              Fecha seleccionada: ${registro.fechaFormateada}
-              Actividad total: ${registro.calcularActividadTotal()}"""),
-          actions: <Widget>[
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop(); // Cierra el AlertDialog
-              },
-              child: const Text('Cerrar'),
-            ),
-          ],
-        );
-      },
-    );
-  }*/
 }

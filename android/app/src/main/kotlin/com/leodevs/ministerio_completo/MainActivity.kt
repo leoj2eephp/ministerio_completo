@@ -1,4 +1,4 @@
-package com.example.ministerio_completo
+package com.leodevs.ministerio_completo
 
 import io.flutter.embedding.android.FlutterActivity
 

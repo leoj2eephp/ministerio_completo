@@ -27,7 +27,7 @@ void hideImportProgressDialog(BuildContext context) {
 }
 
 void shoInformationDialog(
-    BuildContext context, String texto, IconData icon, Color color) {
+    BuildContext context, String texto, IconData icon, Color iconColor) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -40,7 +40,7 @@ void shoInformationDialog(
               Icon(
                 icon,
                 size: 50,
-                color: color,
+                color: iconColor,
               ),
               const SizedBox(height: 20.0),
               Text(texto),

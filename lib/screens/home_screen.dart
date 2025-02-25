@@ -1,13 +1,55 @@
 import 'package:flutter/material.dart';
+import 'package:ministerio_completo/helpers/google_drive_helper.dart';
+import 'package:ministerio_completo/helpers/google_sign_in_helper.dart';
+import 'package:ministerio_completo/providers/config_provider.dart';
 import 'package:ministerio_completo/providers/navigation_provider.dart';
 import 'package:ministerio_completo/screens/inicio_screen.dart';
 import 'package:ministerio_completo/screens/lista_informes_screen.dart';
 import 'package:ministerio_completo/screens/lista_personas_revisitadas_screen.dart';
 import 'package:ministerio_completo/screens/lista_personas_screen.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
+  final signIn = GoogleSignInHelper();
+  bool isSignedIn = false;
+  ConfigProvider? configProvider;
+
+  @override
+  void initState() {
+    super.initState();
+    _checkAndSyncData();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    configProvider = Provider.of<ConfigProvider>(context);
+  }
+
+  Future<void> _checkAndSyncData() async {
+    isSignedIn = await signIn.isSignedIn();
+    if (isSignedIn && await shouldSyncToday()) {
+      final result = await uploadJsonToDrive();
+      if (result) {
+        configProvider?.updateLastSyncDate();
+      }
+    }
+  }
+
+  Future<bool> shouldSyncToday() async {
+    final prefs = await SharedPreferences.getInstance();
+    String? lastSync = prefs.getString('last_sync_date');
+    String today = DateTime.now().toIso8601String().split('T')[0];
+    return lastSync != today;
+  }
 
   @override
   Widget build(BuildContext context) {
