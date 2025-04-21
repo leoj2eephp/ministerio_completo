@@ -17,7 +17,7 @@ class InformeMesScreen extends StatelessWidget {
       appBar:
           AppBar(title: Text("Informe del Mes ${informito.getNombreMes()}")),
       body: FutureBuilder(
-        future: registro.getActividadMes(informito.getMes()),
+        future: registro.getActividadMes(informito),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
             final informes = snapshot.data!;

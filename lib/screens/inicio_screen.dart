@@ -109,11 +109,13 @@ class _InicioScreenState extends State<InicioScreen> {
             !configProvider!.isSyncEnabled
                 ? Card(
                     elevation: 8,
-                    color: Colors.orange.shade100,
+                    color: isDarkMode ? Colors.orange : Colors.orange.shade100,
                     child: ListTile(
                       // leading: const Icon(Icons.warning, color: Colors.orange),
-                      title: const Text(
-                          "No se ha activado la sincronización automática"),
+                      title: Text(
+                          "No se ha activado la sincronización automática",
+                          style: tema.textTheme.bodyLarge?.copyWith(
+                              color: isDarkMode ? Colors.white : Colors.black)),
                       trailing: ElevatedButton(
                           onPressed: () async {
                             final sw = await configProvider!.toggleSync(true);

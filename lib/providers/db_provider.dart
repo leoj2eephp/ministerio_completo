@@ -88,12 +88,12 @@ class DBProvider extends ChangeNotifier {
     return [];
   }
 
-  Future<List<Informe>> getActividadMes(String mes) async {
+  Future<List<Informe>> getActividadMes(Informe informe) async {
     try {
       final db = await database;
       var resultado = await db.rawQuery(
-          "SELECT * FROM informe WHERE STRFTIME('%m', fecha) = ? ORDER BY fecha DESC",
-          [mes]);
+          "SELECT * FROM informe WHERE STRFTIME('%m-%Y', fecha) = ? ORDER BY fecha DESC",
+          [informe.fecha]);
       return resultado.map((e) => Informe.fromJson(e)).toList();
     } catch (e) {
       logger.e(e);
